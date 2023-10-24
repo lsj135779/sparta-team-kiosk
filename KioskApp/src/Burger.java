@@ -36,15 +36,6 @@ public class Burger extends Product {
         }
     }
 
-    public static void printProductCount() {//버거별로 개수랑 같이 주문 화면에 목록 출력
-        for (Burger x : burgers) {//for문 돌면서 있으면 출력
-            if (x.getCount() > 1) {//2개 이상이면 숫자도 출력
-                System.out.println(". " + x.getName() + "   | W " + x.getPrice() + " | " + x.getCount() + " | " + x.getDesc());
-            } else if (x.getCount() > 0) {
-                System.out.println(". " + x.getName() + "   | W " + x.getPrice() + " | " + x.getDesc());
-            }
-        }
-    }
 
     public static void clear() {//count 비우는 함수
         for (Burger x : burgers) {//for문 돌면서 있으면 출력

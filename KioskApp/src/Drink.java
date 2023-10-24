@@ -36,16 +36,6 @@ public class Drink extends Product {
         }
     }
 
-    public static void printProductCount() {//버거별로 개수랑 같이 주문 화면에 목록 출력
-        for (Drink d : drinks) {//for문 돌면서 있으면 출력
-            if(d.getCount()>1){//2개 이상이면 숫자도 출력
-                System.out.println(". " + d.getName() + "   | W " + d.getPrice() + " | " + d.getCount() + " | " + d.getDesc());
-            }else if(d.getCount()>0) {
-                System.out.println(". " + d.getName() + "   | W " + d.getPrice() + " | " + d.getDesc());
-            }
-        }
-    }
-
     public static void clear() {//count 비우는 함수
         for (Drink d : drinks) {//for문 돌면서 있으면 출력
             d.setCount(0);

@@ -25,20 +25,7 @@ public class KioskApp {
         while(true) {//order반복
             int result = selectMenu();//주문하지 않으면 리턴되지 않는 while로 감싸인 함수임
             if (result == 1) {//주문했음
-                for (Product m : menus) {
 
-                    Product product = new Product(m.getName(), m.getDesc(), m.getPrice(), m.getCount());
-                    Order order = new Order();
-                    order.instanceMenus = new ArrayList<Product>();
-                    order.instanceMenus.add(product);
-                    orders.add(order);
-                }
-                menus.clear();//static 메뉴선택 끝나서 장바구니 비워줌
-                /*개수 카운트 비워줌*/
-                Burger.clear();
-                Drink.clear();
-                Icecream.clear();
-                Beer.clear();
 
             } else if (result == 2) {//취소했음
                 menus.clear();//static 메뉴선택 취소해서 장바구니 비워줌
@@ -210,20 +197,31 @@ public class KioskApp {
                     "[ Orders ]");
             double total = 0;
             for (Product p : menus) {
-                //m.printDesc(); ->개수 출력해야 해서 바꿈
+                p.printDescTotal();
                 total = total + p.getPrice()*p.getCount();
             }
-            //개수 출력하는 함수
-            Burger.printProductCount();
-            Drink.printProductCount();
-            Icecream.printProductCount();
-            Beer.printProductCount();
 
             System.out.println("[ Total ]\nW " + total + "\n" +
                     "1. 주문      2. 메뉴판");
             int x = sc.nextInt();
             if (x == 1) {//주문
                 increaseWaiting();//대기 인원 증가
+
+                for (Product m : menus) {
+                    Product product = new Product(m.getName(), m.getDesc(), m.getPrice(), m.getCount());
+                    Order order = new Order();
+                    order.instanceMenus = new ArrayList<Product>();
+                    order.instanceMenus.add(product);
+                    order.setTotal(total);
+                    orders.add(order);
+                }
+                menus.clear();//static 메뉴선택 끝나서 장바구니 비워줌
+                /*개수 카운트 비워줌*/
+                Burger.clear();
+                Drink.clear();
+                Icecream.clear();
+                Beer.clear();
+
                 System.out.println("주문이 완료되었습니다!\n\n" +
                         "대기번호는 [ " + getWaiting() + " ] 번 입니다.\n" +
                         "(3초후 메뉴판으로 돌아갑니다.)");
