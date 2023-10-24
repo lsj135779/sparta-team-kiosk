@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class KioskApp {
     public static ArrayList<Order> orders = new ArrayList<Order>();
@@ -207,13 +208,20 @@ public class KioskApp {
             if (x == 1) {//주문
                 increaseWaiting();//대기 인원 증가
 
+                System.out.println("요청 사항이 있다면 입력해주세요 : ");
+                sc.nextLine();      //nextInt()에 먹힌 Enter키 처리
+                String request = sc.nextLine();
+
+
                 for (Product m : menus) {
                     Product product = new Product(m.getName(), m.getDesc(), m.getPrice(), m.getCount());
                     Order order = new Order();
                     order.instanceMenus = new ArrayList<Product>();
                     order.instanceMenus.add(product);
                     order.setTotal(total);
+                    order.setOffer(request);
                     orders.add(order);
+
                 }
                 menus.clear();//static 메뉴선택 끝나서 장바구니 비워줌
                 /*개수 카운트 비워줌*/
