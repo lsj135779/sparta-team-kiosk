@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class KioskApp {
     public static ArrayList<Order> orders = new ArrayList<Order>();
+    public static ArrayList<Order> completedOrders = new ArrayList<Order>();
     public static ArrayList<Product> menus = new ArrayList<Product>();
 
 
