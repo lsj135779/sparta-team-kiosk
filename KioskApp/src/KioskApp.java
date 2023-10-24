@@ -79,7 +79,7 @@ public class KioskApp {
                     "[ ORDER MENU ]\n" +
                     "5. Order       | 장바구니를 확인 후 주문합니다.\n" +
                     "6. Cancel      | 진행중인 주문을 취소합니다.\n" +
-                    "7. 나가기      | 주문 앱에서 나갑니다."
+                    "7. Exit      | 주문 앱에서 나갑니다."
             );
             menu = sc.nextInt();
 
@@ -125,33 +125,36 @@ public class KioskApp {
                 default:
                     continue;
             }
+
             int select = sc.nextInt();
+
             Product product;
+
             switch (menu) {
                 case 1:
-                    if ((0 < select) && (select < 6)) {
-                        product = new Burger(select);
+                    if ((0 < select) && (select < Burger.getSize())){
+                        product = Burger.select(select);
                     } else {
                         continue;
                     }
                     break;
                 case 2:
-                    if ((0 < select) && (select < 4)) {
-                        product = new Icecream(select);
+                    if ((0 < select) && (select < Icecream.getSize())) {
+                        product = Icecream.select(select);
                     } else {
                         continue;
                     }
                     break;
                 case 3:
-                    if ((0 < select) && (select < 4)) {
-                        product = new Drink(select);
+                    if ((0 < select) && (select < Drink.getSize())) {
+                        product = Drink.select(select);
                     } else {
                         continue;
                     }
                     break;
                 case 4:
-                    if ((0 < select) && (select < 4)) {
-                        product = new Beer(select);
+                    if ((0 < select) && (select < Beer.getSize())) {
+                        product = Beer.select(select);
                     } else {
                         continue;
                     }
