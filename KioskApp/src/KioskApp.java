@@ -25,9 +25,9 @@ public class KioskApp {
         while(true) {//order반복
             int result = selectMenu();//주문하지 않으면 리턴되지 않는 while로 감싸인 함수임
             if (result == 1) {//주문했음
-                for (Menu m : menus) {
+                for (Product m : menus) {
 
-                    Product product = new Product(m.getName(), m.getDesc(), m.getPrice());
+                    Product product = new Product(m.getName(), m.getDesc(), m.getPrice(), m.getCount());
                     Order order = new Order();
                     order.instanceMenus = new ArrayList<Product>();
                     order.instanceMenus.add(product);
@@ -54,8 +54,8 @@ public class KioskApp {
                 for (Order o : orders) {
                     for (Product p : o.instanceMenus) {
                         //p.printDesc();
-                        System.out.println(p.getName() + "     | W " + p.getPrice() + " | " + p.getDesc());
-                        total = total + p.getPrice();
+                        System.out.println(p.getName() + "     | W " + p.getPrice() +" | "+p.getCount()+ " | " + p.getDesc());
+                        total = total + p.getPrice()*p.getCount();
                     }
                 }
                 System.out.println("[ Total ]\nW " + total);
@@ -132,28 +132,28 @@ public class KioskApp {
 
             switch (menu) {
                 case 1:
-                    if ((0 < select) && (select < Burger.getSize())){
+                    if ((0 < select) && (select <= Burger.getSize())){
                         product = Burger.select(select);
                     } else {
                         continue;
                     }
                     break;
                 case 2:
-                    if ((0 < select) && (select < Icecream.getSize())) {
+                    if ((0 < select) && (select <= Icecream.getSize())) {
                         product = Icecream.select(select);
                     } else {
                         continue;
                     }
                     break;
                 case 3:
-                    if ((0 < select) && (select < Drink.getSize())) {
+                    if ((0 < select) && (select <= Drink.getSize())) {
                         product = Drink.select(select);
                     } else {
                         continue;
                     }
                     break;
                 case 4:
-                    if ((0 < select) && (select < Beer.getSize())) {
+                    if ((0 < select) && (select <= Beer.getSize())) {
                         product = Beer.select(select);
                     } else {
                         continue;
@@ -168,7 +168,18 @@ public class KioskApp {
                 confirm = confirmMenu();
             }
             if (confirm == 1) {
-                menus.add(product);
+
+                product.increaseCount();//산다 하면 물품 개수만 올려준다 동일한 이름으로 생성 x
+                boolean newMenu = true;
+                for (Product p : menus) {
+                    if(p.getId()==product.getId()){
+                        newMenu = false;
+                        break;
+                    }
+                }
+                if(newMenu == true){
+                    menus.add(product);
+                }
                 System.out.println(product.getName() + " 가 장바구니에 추가되었습니다.");
             }
             return;
@@ -196,11 +207,11 @@ public class KioskApp {
             Scanner sc = new Scanner(System.in);
 
             System.out.println("아래와 같이 주문 하시겠습니까?\n" +
-                    "[ Orders ]\n");
+                    "[ Orders ]");
             double total = 0;
-            for (Menu m : menus) {
+            for (Product p : menus) {
                 //m.printDesc(); ->개수 출력해야 해서 바꿈
-                total = total + ((Product) m).getPrice();
+                total = total + p.getPrice()*p.getCount();
             }
             //개수 출력하는 함수
             Burger.printProductCount();

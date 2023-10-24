@@ -13,7 +13,6 @@ public class Icecream extends Product {
     public static Icecream select(int select){
         int index = select-1;
         //id 일치하는 상품 count만 올림
-        icecreams.get(index).setCount(icecreams.get(index).getCount()+1);
         return icecreams.get(index);
     }
 
@@ -23,23 +22,15 @@ public class Icecream extends Product {
 
     public Icecream(String name, String desc, double price) {//새로 생성하는 생성자
         super.setName(name);
-        super.setId(icecreams.size());
+        super.setId("Icecream"+icecreams.size());
         super.setDesc(desc);
         super.setCount(0);
         super.setPrice(price);
         icecreams.add(this);
     }
 
-    public void printDescTotal() {
-        System.out.println(super.getName() + "     | W " + super.getPrice() + " | " +super.getCount()+ "개 | " + super.getDesc());
-    }
-
-    public void printDesc() {
-        System.out.println(super.getName() + "     | W " + super.getPrice() + " | " + super.getDesc());
-    }
-
     public static void printProduct() {//메뉴 선택시 출력
-        System.out.println("[ Drinks MENU ]\n");
+        System.out.println("[ Drinks MENU ]");
         for (int i = 0; i < icecreams.size(); i++) {//for문 돌면서 있으면 출력
             System.out.println((i + 1) + ". " + icecreams.get(i).getName() + "   | W " + icecreams.get(i).getPrice() + " | " + icecreams.get(i).getDesc());
         }

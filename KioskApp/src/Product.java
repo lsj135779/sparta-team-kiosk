@@ -3,20 +3,22 @@ public class Product extends Menu {
 
     private int count;
 
-    private int id;
+    private String id;
 
     public Product() {
     }
 
-    public Product(String name, String desc, double price) {
+    public Product(String name, String desc, double price, int count) {
         super(name, desc);
         this.price = price;
-
+        this.count = count;
     }
+    public void printDescTotal() {
+        System.out.println(super.getName() + "     | W " + this.getPrice() + " | " +(this.getCount()+1)+ "개 | " + super.getDesc());
+    }
+
     public void printDesc() {
-    }
-
-     public void printDescTotal(){
+        System.out.println(super.getName() + "     | W " + this.getPrice() + " | " + super.getDesc());
     }
 
 
@@ -38,10 +40,16 @@ public class Product extends Menu {
         this.count = count;
 
     }
-    public void setId(int id){
+    public void increaseCount(){
+        this.count = this.count+1;
+    }
+    public void decreaseCount(){
+        this.count = this.count-1;
+    }
+    public void setId(String id){
         this.id = id;
     }
-    public int getId(){
+    public String getId(){
         return this.id;
 
     }

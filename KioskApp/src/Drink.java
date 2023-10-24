@@ -13,8 +13,7 @@ public class Drink extends Product {
 
     public static Drink select(int select){
         int index = select-1;
-        //id 일치하는 상품 count만 올림
-        drinks.get(index).setCount(drinks.get(index).getCount()+1);
+
         return drinks.get(index);
     }
     public Drink(){
@@ -23,23 +22,15 @@ public class Drink extends Product {
 
     public Drink(String name, String desc, double price){//새로 생성하는 생성자
         super.setName(name);
-        super.setId(drinks.size());
+        super.setId("drink"+drinks.size());
         super.setDesc(desc);
         super.setCount(0);
         super.setPrice(price);
         drinks.add(this);
     }
 
-    public void printDescTotal() {
-        System.out.println(super.getName() + "     | W " + super.getPrice() + " | " +super.getCount()+ "개 | " + super.getDesc());
-    }
-
-    public void printDesc() {
-        System.out.println(super.getName() + "     | W " + super.getPrice() + " | " + super.getDesc());
-    }
-
     public static void printProduct() {//메뉴 선택시 출력
-        System.out.println("[ Drinks MENU ]\n");
+        System.out.println("[ Drinks MENU ]");
         for (int i = 0; i < drinks.size(); i++) {//for문 돌면서 있으면 출력
             System.out.println((i + 1) + ". " + drinks.get(i).getName() + "   | W " + drinks.get(i).getPrice() + " | " + drinks.get(i).getDesc());
         }

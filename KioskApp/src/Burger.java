@@ -14,14 +14,13 @@ public class Burger extends Product {
 //        ));
     public static Burger select(int select){
         int index = select-1;
-        //id 일치하는 상품 count만 올림
-        burgers.get(index).setCount(burgers.get(index).getCount()+1);
+
         return burgers.get(index);
     }
 
     public Burger(String name, String desc, double price) {//새로 생성하는 생성자
         super.setName(name);
-        super.setId(burgers.size());
+        super.setId("burger"+burgers.size());
         super.setDesc(desc);
         super.setCount(0);
         super.setPrice(price);
@@ -29,16 +28,9 @@ public class Burger extends Product {
     }
 
 
-    public void printDescTotal() {
-        System.out.println(super.getName() + "     | W " + super.getPrice() + " | " +super.getCount()+ "개 | " + super.getDesc());
-    }
-
-    public void printDesc() {
-        System.out.println(super.getName() + "     | W " + super.getPrice() + " | " + super.getDesc());
-    }
 
     public static void printProduct() {//메뉴 선택시 출력
-        System.out.println("[ Burgers MENU ]\n");
+        System.out.println("[ Burgers MENU ]");
         for (int i = 0; i < burgers.size(); i++) {//for문 돌면서 있으면 출력
             System.out.println((i + 1) + ". " + burgers.get(i).getName() + "   | W " + burgers.get(i).getPrice() + " | " + burgers.get(i).getDesc());
         }
