@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class KioskApp {
     public static ArrayList<Order> orders = new ArrayList<Order>();
@@ -224,11 +225,15 @@ public class KioskApp {
             int x = sc.nextInt();
             if (x == 1) {//주문
                 increaseWaiting();//대기 인원 증가
+
+                System.out.println("요청 사항이 있다면 입력해주세요 : ");
+                sc.nextLine();      //nextInt()에 먹힌 Enter키 처리
+                String request = sc.nextLine();
+
                 System.out.println("주문이 완료되었습니다!\n\n" +
                         "대기번호는 [ " + getWaiting() + " ] 번 입니다.\n" +
                         "(3초후 메뉴판으로 돌아갑니다.)");
                 //3초 기다려야됨
-
                 return x;
             } else if (x == 2) {
                 return x;
