@@ -19,6 +19,7 @@ public class ManagerApp {
 
             }else if(select ==2){//완료주문 목록 함수 호출
 
+
             }else if(select ==3){//상품 생성 함수 호출
 
             }else if(select ==4){//상품 삭제 함수 호출

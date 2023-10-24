@@ -10,47 +10,48 @@ public class Beer extends Product {
 //);
 
 
-    public static Beer select(int select){
-        int index = select-1;
+    public static Beer select(int select) {
+        int index = select - 1;
         return beers.get(index);
     }
 
-        public Beer() {
+    public Beer() {
 
+    }
+
+    public Beer(String name, String desc, double price) {//새로 생성하는 생성자
+        super.setName(name);
+        super.setId("beer" + beers.size());
+        super.setDesc(desc);
+        super.setCount(0);
+        super.setPrice(price);
+        beers.add(this);
+    }
+
+    public static void printProduct() {//메뉴 선택시 출력
+        System.out.println("[ Beer MENU ]");
+        for (int i = 0; i < beers.size(); i++) {//for문 돌면서 있으면 출력
+            System.out.println((i + 1) + ". " + beers.get(i).getName() + "   | W " + beers.get(i).getPrice() + " | " + beers.get(i).getDesc());
         }
+    }
 
-        public Beer(String name, String desc, double price) {//새로 생성하는 생성자
-            super.setName(name);
-            super.setId("beer"+beers.size());
-            super.setDesc(desc);
-            super.setCount(0);
-            super.setPrice(price);
-            beers.add(this);
-        }
-
-        public static void printProduct() {//메뉴 선택시 출력
-            System.out.println("[ Beer MENU ]");
-            for (int i = 0; i < beers.size(); i++) {//for문 돌면서 있으면 출력
-                System.out.println((i + 1) + ". " + beers.get(i).getName() + "   | W " + beers.get(i).getPrice() + " | " + beers.get(i).getDesc());
+    public static void printProductCount() {//버거별로 개수랑 같이 주문 화면에 목록 출력
+        for (Beer x : beers) {//for문 돌면서 있으면 출력
+            if (x.getCount() > 1) {//2개 이상이면 숫자도 출력
+                System.out.println(". " + x.getName() + "   | W " + x.getPrice() + " | " + x.getCount() + " | " + x.getDesc());
+            } else if (x.getCount() > 0) {
+                System.out.println(". " + x.getName() + "   | W " + x.getPrice() + " | " + x.getDesc());
             }
         }
+    }
 
-        public static void printProductCount() {//버거별로 개수랑 같이 주문 화면에 목록 출력
-            for (Beer x : beers) {//for문 돌면서 있으면 출력
-                if (x.getCount() > 1) {//2개 이상이면 숫자도 출력
-                    System.out.println(". " + x.getName() + "   | W " + x.getPrice() + " | " + x.getCount() + " | " + x.getDesc());
-                } else if (x.getCount() > 0) {
-                    System.out.println(". " + x.getName() + "   | W " + x.getPrice() + " | " + x.getDesc());
-                }
-            }
+    public static void clear() {//count 비우는 함수
+        for (Beer x : beers) {//for문 돌면서 있으면 출력
+            x.setCount(0);
         }
+    }
 
-        public static void clear() {//count 비우는 함수
-            for (Beer x : beers) {//for문 돌면서 있으면 출력
-                x.setCount(0);
-            }
-        }
-    public static int getSize(){
+    public static int getSize() {
         return beers.size();
     }
-    }
+}
