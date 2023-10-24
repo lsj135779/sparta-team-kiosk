@@ -3,11 +3,10 @@ import java.util.Arrays;
 
 public class Burger extends Product {
 
-    private static ArrayList<Burger> burgers = new ArrayList<Burger>();
+    public static ArrayList<Product> burgers = new ArrayList<Product>();
 
-    public static Burger select(int select){
+    public static Product select(int select){
         int index = select-1;
-
         return burgers.get(index);
     }
 
@@ -21,17 +20,8 @@ public class Burger extends Product {
     }
 
 
-
-    public static void printProduct() {//메뉴 선택시 출력
-        System.out.println("[ Burgers MENU ]");
-        for (int i = 0; i < burgers.size(); i++) {//for문 돌면서 있으면 출력
-            System.out.println((i + 1) + ". " + burgers.get(i).getName() + "   | W " + burgers.get(i).getPrice() + " | " + burgers.get(i).getDesc());
-        }
-    }
-
-
     public static void clear() {//count 비우는 함수
-        for (Burger x : burgers) {//for문 돌면서 있으면 출력
+        for (Product x : burgers) {//for문 돌면서 있으면 출력
             x.setCount(0);
         }
     }

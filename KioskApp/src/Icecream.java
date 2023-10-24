@@ -3,9 +3,9 @@ import java.util.Arrays;
 
 public class Icecream extends Product {
 
-    private static ArrayList<Icecream> icecreams = new ArrayList<>();
+    public static ArrayList<Product> icecreams = new ArrayList<Product>();
 
-    public static Icecream select(int select){
+    public static Product select(int select){
         int index = select-1;
         //id 일치하는 상품 count만 올림
         return icecreams.get(index);
@@ -24,15 +24,8 @@ public class Icecream extends Product {
         icecreams.add(this);
     }
 
-    public static void printProduct() {//메뉴 선택시 출력
-        System.out.println("[ Drinks MENU ]");
-        for (int i = 0; i < icecreams.size(); i++) {//for문 돌면서 있으면 출력
-            System.out.println((i + 1) + ". " + icecreams.get(i).getName() + "   | W " + icecreams.get(i).getPrice() + " | " + icecreams.get(i).getDesc());
-        }
-    }
-
     public static void clear() {//count 비우는 함수
-        for (Icecream x : icecreams) {//for문 돌면서 있으면 출력
+        for (Product x : icecreams) {//for문 돌면서 있으면 출력
             x.setCount(0);
         }
     }

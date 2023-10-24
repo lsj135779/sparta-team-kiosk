@@ -99,16 +99,20 @@ public class KioskApp {
 
             switch (menu) {
                 case 1:
-                    Burger.printProduct();
+                    System.out.println("[ Burger MENU ]");
+                    Product.printIndex(Burger.burgers);
                     break;
                 case 2:
-                    Icecream.printProduct();
+                    System.out.println("[ Frozen Custard MENU ]");
+                    Product.printIndex(Icecream.icecreams);
                     break;
                 case 3:
-                    Drink.printProduct();
+                    System.out.println("[ Drink MENU ]");
+                    Product.printIndex(Drink.drinks);
                     break;
                 case 4:
-                    Beer.printProduct();
+                    System.out.println("[ Beer MENU ]");
+                    Product.printIndex(Beer.beers);
                     break;
                 default:
                     continue;

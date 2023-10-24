@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Product extends Menu {
+
     private double price;
 
     private int count;
@@ -14,6 +15,12 @@ public class Product extends Menu {
         super(name, desc);
         this.price = price;
         this.count = count;
+    }
+
+    public static void printIndex(ArrayList<Product> p) {
+        for (int i = 0; i < p.size(); i++) {//for문 돌면서 있으면 출력
+            System.out.println((i + 1) + ". " +p.get(i).getName() + "   | W " + p.get(i).getPrice() + " | " + p.get(i).getDesc());
+        }
     }
 
     //이걸로 숫자 나오는 프린트 함수 다 대체함
@@ -55,4 +62,11 @@ public class Product extends Menu {
         return this.id;
 
     }
+
+//    public String getName() {
+//        return name;
+//    }
+//    public void setName(String name){
+//        this.name = name;
+//    };
 }
