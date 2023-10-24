@@ -5,13 +5,6 @@ public class Burger extends Product {
 
     private static ArrayList<Burger> burgers = new ArrayList<Burger>();
 
-    //        private static ArrayList<Burger> burgers = new ArrayList<Burger>(Arrays.asList(
-//                new Burger("ShackBurger","토마토, 양상추, 쉑소스가 토핑된 치즈버거",6.9),
-//                new Burger("SmokeShack","베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거", 8.9),
-//                new Burger("Shroom Burger","몬스터 치즈와 체다 치즈로 속을 채운 베지테리안 버거",9.4),
-//                new Burger("Cheeseburger","포테이토 번과 비프패티, 치즈가 토핑된 치즈버거",6.9),
-//                new Burger("Hamburger","비프패티를 기반으로 야채가 들어간 기본버거",5.4)
-//        ));
     public static Burger select(int select){
         int index = select-1;
 

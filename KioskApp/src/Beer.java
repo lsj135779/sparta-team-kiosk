@@ -3,11 +3,6 @@ import java.util.Arrays;
 
 public class Beer extends Product {
     private static ArrayList<Beer> beers = new ArrayList<>();
-//            Arrays.asList(
-//            new Beer("Lager", "강한 탄산감이 있는 청량한 맥주", 6.5),
-//                new Beer("Ale", "풍부한 향과 단맛이 나는 높은 바디감의 맥주", 6.5),
-//                new Beer("Abita Root Beer", "맥주인 척 하는 탄산음료", 5.4))
-//);
 
 
     public static Beer select(int select) {

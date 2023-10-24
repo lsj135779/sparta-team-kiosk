@@ -4,12 +4,6 @@ import java.util.Arrays;
 public class Drink extends Product {
 
     private static ArrayList<Drink> drinks = new ArrayList<>();
-//            Arrays.asList(
-//            new Drink("Raspberry Lemonade","쉐이크쉑 시그니처 레몬에이드에 상큼 달콤한 라즈베리가 더해진 시즌 한정 레몬에이드",6.5),
-//            new Drink("Lemonade","매장에서 직접 만드는 상큼한 레몬에이드", 6.5),
-//            new Drink("Fresh Brewed Iced Tea","직접 유기농 홍차를 우려낸 아이스 티",5.4)
-//            )
-//    );
 
     public static Drink select(int select){
         int index = select-1;

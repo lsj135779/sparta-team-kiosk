@@ -211,15 +211,14 @@ public class KioskApp {
                 System.out.println("요청 사항이 있다면 입력해주세요 : ");
                 sc.nextLine();      //nextInt()에 먹힌 Enter키 처리
                 String request = sc.nextLine();
-
-
+                /*주문 객체 만드는 중*/
                 for (Product m : menus) {
                     Product product = new Product(m.getName(), m.getDesc(), m.getPrice(), m.getCount());
                     Order order = new Order();
                     order.instanceMenus = new ArrayList<Product>();
                     order.instanceMenus.add(product);
                     order.setTotal(total);
-                    order.setOffer(request);
+                    order.setOffer(request);//주문에 요청사항 추가
                     orders.add(order);
 
                 }

@@ -4,11 +4,6 @@ import java.util.Arrays;
 public class Icecream extends Product {
 
     private static ArrayList<Icecream> icecreams = new ArrayList<>();
-//            Arrays.asList(
-//            new Icecream("Classic Hand-Spun Shakes", "쫀득하고 진한 커스터드가 들어간 클래식 쉐이크", 6.5),
-//            new Icecream("Floats", "부드러운 바닐라 커스터드와 톡톡 터지는 탄산이 만나 탄생한 색다른 음료", 6.5),
-//            new Icecream("Cup & Cones", "매일 점포에서 신선하게 제조하는 쫀득하고 진한 아이스크림", 5.4))
-//    );
 
     public static Icecream select(int select){
         int index = select-1;

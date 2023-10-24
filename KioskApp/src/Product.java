@@ -15,6 +15,8 @@ public class Product extends Menu {
         this.price = price;
         this.count = count;
     }
+
+    //이걸로 숫자 나오는 프린트 함수 다 대체함
     public void printDescTotal() {
         System.out.println(super.getName() + "     | W " + this.getPrice() + " | " +(this.getCount()+1)+ "개 | " + super.getDesc());
     }
