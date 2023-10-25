@@ -1,4 +1,8 @@
+import java.util.ArrayList;
+
 public class Menu {
+
+    public static ArrayList<Product> products = new ArrayList<Product>();
     private String name;
     private String desc;
 

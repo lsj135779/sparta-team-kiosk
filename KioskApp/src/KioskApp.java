@@ -7,6 +7,53 @@ public class KioskApp {
     public static ArrayList<Order> completedOrders = new ArrayList<Order>();
     public static ArrayList<Product> menus = new ArrayList<Product>();
 
+    public static ArrayList<Product> icecreams = new ArrayList<Product>();
+
+    public static Product selectIcecream(int select){
+        int index = select-1;
+        //id 일치하는 상품 count만 올림
+        return icecreams.get(index);
+    }
+    public static int getIcecreamSize(){
+        return icecreams.size();
+    }
+
+    public static ArrayList<Product> burgers = new ArrayList<Product>();
+
+    public static Product selectBurger(int select){
+        int index = select-1;
+        return burgers.get(index);
+    }
+    public static int getBurgerSize() {
+        return burgers.size();
+    }
+
+    public static ArrayList<Product> drinks = new ArrayList<Product>();
+
+    public static Product selectDrink(int select){
+        int index = select-1;
+
+        return drinks.get(index);
+    }
+
+
+    public static int getDrinkSize(){
+        return drinks.size();
+    }
+
+    public static ArrayList<Product> beers = new ArrayList<Product>();
+
+
+    public static Product selectBeer(int select) {
+        int index = select - 1;
+        return beers.get(index);
+    }
+
+    public static int getBeerSize() {
+        return beers.size();
+    }
+
+
 
     private static int waiting = 0;//대기인원
 
@@ -31,10 +78,10 @@ public class KioskApp {
             } else if (result == 2) {//취소했음
                 menus.clear();//static 메뉴선택 취소해서 장바구니 비워줌
                 /*개수 카운트 비워줌*/
-                Product.clear(Burger.burgers);
-                Product.clear(Icecream.icecreams);
-                Product.clear(Beer.beers);
-                Product.clear(Drink.drinks);
+                Product.clear(burgers);
+                Product.clear(icecreams);
+                Product.clear(beers);
+                Product.clear(drinks);
             } else if (result == 3) {//총 판매목록
                 double total = 0;
                 System.out.println(
@@ -100,19 +147,19 @@ public class KioskApp {
             switch (menu) {
                 case 1:
                     System.out.println("[ Burger MENU ]");
-                    Product.printIndex(Burger.burgers);
+                    Product.printIndex(burgers);
                     break;
                 case 2:
                     System.out.println("[ Frozen Custard MENU ]");
-                    Product.printIndex(Icecream.icecreams);
+                    Product.printIndex(icecreams);
                     break;
                 case 3:
                     System.out.println("[ Drink MENU ]");
-                    Product.printIndex(Drink.drinks);
+                    Product.printIndex(drinks);
                     break;
                 case 4:
                     System.out.println("[ Beer MENU ]");
-                    Product.printIndex(Beer.beers);
+                    Product.printIndex(beers);
                     break;
                 default:
                     continue;
@@ -124,29 +171,29 @@ public class KioskApp {
 
             switch (menu) {
                 case 1:
-                    if ((0 < select) && (select <= Burger.getSize())){
-                        product = Burger.select(select);
+                    if ((0 < select) && (select <= getBurgerSize())){
+                        product = selectBurger(select);
                     } else {
                         continue;
                     }
                     break;
                 case 2:
-                    if ((0 < select) && (select <= Icecream.getSize())) {
-                        product = Icecream.select(select);
+                    if ((0 < select) && (select <= getIcecreamSize())) {
+                        product = selectIcecream(select);
                     } else {
                         continue;
                     }
                     break;
                 case 3:
-                    if ((0 < select) && (select <= Drink.getSize())) {
-                        product = Drink.select(select);
+                    if ((0 < select) && (select <= getDrinkSize())) {
+                        product = selectDrink(select);
                     } else {
                         continue;
                     }
                     break;
                 case 4:
-                    if ((0 < select) && (select <= Beer.getSize())) {
-                        product = Beer.select(select);
+                    if ((0 < select) && (select <= getBeerSize())) {
+                        product = selectBeer(select);
                     } else {
                         continue;
                     }
@@ -228,10 +275,10 @@ public class KioskApp {
                 }
                 menus.clear();//static 메뉴선택 끝나서 장바구니 비워줌
                 /*개수 카운트 비워줌*/
-                Product.clear(Burger.burgers);
-                Product.clear(Icecream.icecreams);
-                Product.clear(Beer.beers);
-                Product.clear(Drink.drinks);
+                Product.clear(burgers);
+                Product.clear(icecreams);
+                Product.clear(beers);
+                Product.clear(drinks);
 
                 System.out.println("주문이 완료되었습니다!\n\n" +
                         "대기번호는 [ " + getWaiting() + " ] 번 입니다.\n" +
