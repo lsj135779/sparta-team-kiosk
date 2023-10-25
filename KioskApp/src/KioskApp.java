@@ -43,9 +43,9 @@ public class KioskApp {
             if ((0 < menu) && (menu <= menus.size())) {//메뉴 안에 있으면
                 selectProduct(menu);
             } else if (menu == menus.size()+1) {//Order
-                int order = order();
+                order();
             } else if (menu == (menus.size()+2)) {//Cancel
-                int order = cancel();
+                cancel();
             }
             else if(menu == (menus.size()+3)){//나가기, while문 break;
                 return;
@@ -127,7 +127,7 @@ public class KioskApp {
         }
     }
 
-    public static int order() {
+    public static void order() {
         while (true) {
             Scanner sc = new Scanner(System.in);
 
@@ -172,14 +172,14 @@ public class KioskApp {
                         "(3초후 메뉴판으로 돌아갑니다.)");
                 //3초 기다려야됨
 
-                return x;
+                return;
             } else if (x == 2) {
-                return x;
+                return;
             }
         }
     }
 
-    public static int cancel() {
+    public static void cancel() {
         while (true) {
             Scanner sc = new Scanner(System.in);
 
@@ -196,9 +196,9 @@ public class KioskApp {
                         p.setCount(0);
                     }
                 }
-                return x;
+                return;
             } else if (x == 2) {
-                return x;
+                return;
             }
         }
     }
