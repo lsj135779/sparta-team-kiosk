@@ -30,13 +30,7 @@ public class KioskApp {
 
 
             } else if (result == 2) {//취소했음
-                cart.clear();//static 메뉴선택 취소해서 장바구니 비워줌
-                /*개수 카운트 비워줌*/
-                for (Menu m : menus) {
-                    for (Product p : m.products) {
-                        p.setCount(0);
-                    }
-                }
+
             } else if (result == 3) {//총 판매목록
                 double total = 0;
                 System.out.println(
@@ -211,6 +205,13 @@ public class KioskApp {
             if (x == 1) {//주문취소
                 System.out.println("취소가 완료되었습니다!\n\n");
                 //3초 기다려야됨
+                cart.clear();//static 메뉴선택 취소해서 장바구니 비워줌
+                /*개수 카운트 비워줌*/
+                for (Menu m : menus) {
+                    for (Product p : m.products) {
+                        p.setCount(0);
+                    }
+                }
                 return x;
             } else if (x == 2) {
                 return x;
