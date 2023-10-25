@@ -24,11 +24,6 @@ public class Icecream extends Product {
         icecreams.add(this);
     }
 
-    public static void clear() {//count 비우는 함수
-        for (Product x : icecreams) {//for문 돌면서 있으면 출력
-            x.setCount(0);
-        }
-    }
     public static int getSize(){
         return icecreams.size();
     }

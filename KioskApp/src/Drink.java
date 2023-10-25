@@ -23,11 +23,7 @@ public class Drink extends Product {
         drinks.add(this);
     }
 
-    public static void clear() {//count 비우는 함수
-        for (Product d : drinks) {//for문 돌면서 있으면 출력
-            d.setCount(0);
-        }
-    }
+
 
     public static int getSize(){
         return drinks.size();

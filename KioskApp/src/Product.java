@@ -32,6 +32,12 @@ public class Product extends Menu {
         System.out.println(super.getName() + "     | W " + this.getPrice() + " | " + super.getDesc());
     }
 
+    public static void clear(ArrayList<Product> products) {//count 비우는 함수
+        for (Product x : products) {//for문 돌면서 있으면 출력
+            x.setCount(0);
+        }
+    }
+
     /*getter,setter*/
     public double getPrice() {
         return this.price;

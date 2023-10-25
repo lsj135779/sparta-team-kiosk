@@ -31,10 +31,10 @@ public class KioskApp {
             } else if (result == 2) {//취소했음
                 menus.clear();//static 메뉴선택 취소해서 장바구니 비워줌
                 /*개수 카운트 비워줌*/
-                Burger.clear();
-                Drink.clear();
-                Icecream.clear();
-                Beer.clear();
+                Product.clear(Burger.burgers);
+                Product.clear(Icecream.icecreams);
+                Product.clear(Beer.beers);
+                Product.clear(Drink.drinks);
             } else if (result == 3) {//총 판매목록
                 double total = 0;
                 System.out.println(
@@ -228,10 +228,10 @@ public class KioskApp {
                 }
                 menus.clear();//static 메뉴선택 끝나서 장바구니 비워줌
                 /*개수 카운트 비워줌*/
-                Burger.clear();
-                Drink.clear();
-                Icecream.clear();
-                Beer.clear();
+                Product.clear(Burger.burgers);
+                Product.clear(Icecream.icecreams);
+                Product.clear(Beer.beers);
+                Product.clear(Drink.drinks);
 
                 System.out.println("주문이 완료되었습니다!\n\n" +
                         "대기번호는 [ " + getWaiting() + " ] 번 입니다.\n" +
