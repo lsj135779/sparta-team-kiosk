@@ -48,7 +48,7 @@ public class Main {
             Loop2:
             switch (select) {
                 case 1:
-                    KioskApp.run();
+                    KioskApp.selectMenu();
                     break;
                 case 2:
                     ManagerApp.run();
