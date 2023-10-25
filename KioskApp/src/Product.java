@@ -34,7 +34,7 @@ public class Product{
         boolean newMenus = true;
         for (int i=0;i<menus.size();i++){
             if(menus.get(i).getName().equals(menuName)){
-                tempP.setId(menuName+(menus.get(i).products.size()));
+                tempP.setId(menuName+(menus.get(i).products.size()+1));
                 menus.get(i).products.add(tempP);
                 newMenus = false;//새 메뉴가 아님
                 break;
@@ -47,7 +47,7 @@ public class Product{
             Scanner sc = new Scanner(System.in);
             String menuDesc = sc.nextLine();
             Menu tempM = new Menu(menuName,menuDesc);
-            tempP.setId(menuName+(menus.get(menus.size()).products.size()));
+            tempP.setId(menuName+"1");
             tempM.products.add(tempP);
             menus.add(tempM);
         }
