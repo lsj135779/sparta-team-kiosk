@@ -9,13 +9,6 @@ public class KioskApp {
 
     public static ArrayList<Menu> menus = new ArrayList<Menu>();
 
-
-
-    public static Product selectP(int menu, int product){
-        return menus.get(menu-1).products.get(product-1);
-    }
-
-
     private static int waiting = 0;//대기인원
 
     public static int getWaiting() {
@@ -111,7 +104,6 @@ public class KioskApp {
             Product.printIndex(m.products);
 
             int select = sc.nextInt();
-
             Product product;
 
             if ((0 < select) && (select <= m.products.size())){
@@ -120,13 +112,24 @@ public class KioskApp {
                 continue;
             }
 
-            int confirm = 0;
-            while (confirm == 0) {
-                product.printDescTotal();//개수출력
-                confirm = confirmMenu();
-            }
-            if (confirm == 1) {
+            product.printDescTotal();//개수출력
+            confirmMenu(product);
 
+            return;
+        }
+    }
+
+    public static Product selectP(int menu, int product){
+        return menus.get(menu-1).products.get(product-1);
+    }
+
+    public static void confirmMenu(Product product) {
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?\n" +
+                    "1. 확인        2. 취소");
+            int confirm = sc.nextInt();
+            if (confirm == 1) {
                 product.increaseCount();//산다 하면 물품 개수만 올려준다 동일한 이름으로 생성 x
                 boolean newMenu = true;
                 for (Product p : cart) {
@@ -139,23 +142,9 @@ public class KioskApp {
                     cart.add(product);
                 }
                 System.out.println(product.getName() + " 가 장바구니에 추가되었습니다.");
-            }
-            return;
-        }
-    }
-
-
-    public static int confirmMenu() {
-        while (true) {
-
-            Scanner sc = new Scanner(System.in);
-            System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?\n" +
-                    "1. 확인        2. 취소");
-            int confirm = sc.nextInt();
-            if (confirm == 1) {
-                return confirm;
-            } else if (confirm == 2) {
-                return confirm;
+                return;
+            }else if(confirm == 2){
+                return;
             }
         }
     }
@@ -224,7 +213,6 @@ public class KioskApp {
                 //3초 기다려야됨
                 return x;
             } else if (x == 2) {
-
                 return x;
             }
         }
