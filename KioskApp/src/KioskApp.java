@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class KioskApp {
     public static ArrayList<Order> orders = new ArrayList<Order>();//현재 주문 저장
