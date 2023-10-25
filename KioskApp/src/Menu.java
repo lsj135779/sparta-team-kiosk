@@ -7,12 +7,15 @@ public class Menu {
     private String name;
     private String desc;
 
+    private String id;
+
     public static void createMenu(String name, String desc){
         ArrayList<Menu> menus =KioskApp.menus;
         boolean newMenus = true;
         for (int i=0;i<menus.size();i++){
             if(menus.get(i).getName().equals(name)){
                 newMenus = false;//새 메뉴가 아님
+                System.out.println("이미 존재하는 메뉴입니다.");
             }
         }
         //for문을 도는 동안 같은 메뉴이름인게 안 나왔으면 새 메뉴임
@@ -25,6 +28,7 @@ public class Menu {
         this.name = name;
         this.desc = desc;
         this.products = new ArrayList<Product>();
+        this.id = "Menu"+products.size();
     }
     public static int printIndex(ArrayList<Menu> m) {
         int i=0;
@@ -33,6 +37,7 @@ public class Menu {
         }
         return i+1;
     }
+
     /*getter, setter*/
     public String getName() {
         return this.name;
@@ -45,6 +50,14 @@ public class Menu {
     }
     public void setDesc(String desc){
         this.desc = desc;
+    }
+
+    public void setId(String id){
+        this.id = id;
+    }
+
+    public String getId(){
+        return this.id;
     }
 
 }
