@@ -16,9 +16,11 @@ public class ManagerApp {
             select = sc.nextInt();
 
             if(select == 1){//대기주문 목록 함수 호출
+                for(int i=0;i<KioskApp.orders.size();i++){
+                    System.out.println(KioskApp.orders.get(i).checkOrder());
+                }
 
             }else if(select ==2){//완료주문 목록 함수 호출
-
 
             }else if(select ==3){//상품 생성 함수 호출
                 createProduct();

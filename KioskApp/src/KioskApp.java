@@ -1,14 +1,16 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class KioskApp {
-    public static ArrayList<Order> orders = new ArrayList<Order>();//현재 주문 저장
+    public static List<Order> orders = new ArrayList<Order>();//현재 주문 저장
     public static ArrayList<Order> completedOrders = new ArrayList<Order>();//완료된 주문 저장
     public static ArrayList<Product> cart = new ArrayList<Product>();//장바구니
-
     public static ArrayList<Menu> menus = new ArrayList<Menu>();//메뉴들 저장
-
     private static int waiting = 0;//대기인원 -> orders.size()로 하면 될듯함
+
 
     public static int getWaiting() {
         return waiting;
@@ -144,20 +146,26 @@ public class KioskApp {
             if (x == 1) {//주문
                 increaseWaiting();//대기 인원 증가
 
-                System.out.println("요청 사항이 있다면 입력해주세요 : ");
+                System.out.print("요청 사항이 있다면 입력해주세요 : ");
                 sc.nextLine();      //nextInt()에 먹힌 Enter키 처리
                 String request = sc.nextLine();
+
+                LocalDateTime now = LocalDateTime.now();
+                String dateTimeNow = now.format(DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss"));
                 /*주문 객체 만드는 중*/
+                Order o = new Order();
+                ArrayList<Product> orderMenus = new ArrayList<Product>();
                 for (Product p : cart) {
                     Product product = new Product(p.getName(), p.getDesc(), p.getPrice(), p.getCount());
-                    Order order = new Order();
-                    order.instanceMenus = new ArrayList<Product>();
-                    order.instanceMenus.add(product);
-                    order.setTotal(total);
-                    order.setOffer(request);//주문에 요청사항 추가
-                    orders.add(order);
-
+                    orderMenus.add(product);
                 }
+                o.setInstanceMenus(orderMenus);
+                o.setTotal(total);
+                o.setOffer(request);//주문에 요청사항 추가
+                o.setDateTime(dateTimeNow); // 현재시각 추가
+                o.setWaitingNum(waiting); //대기번호 추가
+                orders.add(o);
+
                 cart.clear();//static 메뉴선택 끝나서 장바구니 비워줌
                 /*개수 카운트 비워줌*/
                 for (Menu m : menus) {
