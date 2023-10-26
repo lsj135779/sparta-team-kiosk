@@ -51,11 +51,9 @@ public class Menu {
     public void setDesc(String desc){
         this.desc = desc;
     }
-
     public void setId(String id){
         this.id = id;
     }
-
     public String getId(){
         return this.id;
     }

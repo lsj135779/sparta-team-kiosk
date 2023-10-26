@@ -37,7 +37,9 @@ public class KioskApp {
             System.out.println("[ ORDER MENU ]\n" +
                     i+". Order       | 장바구니를 확인 후 주문합니다.\n" +
                     (i+1)+". Cancel      | 진행중인 주문을 취소합니다.\n" +
-                    (i+2)+". Exit      | 주문 앱에서 나갑니다."
+                    (i+2)+". WaitingOrder       | 대기중인 주문목록을 확인합니다.\n" +
+                    (i+3)+". RecentOrder      | 최근 3가지 주문목록을 확인합니다.\n" +
+                    (i+4)+". Exit      | 주문 앱에서 나갑니다."
             );
             menu = sc.nextInt();
 
@@ -47,8 +49,12 @@ public class KioskApp {
                 order();
             } else if (menu == (menus.size()+2)) {//Cancel
                 cancel();
+            } else if (menu == (menus.size()+3)) {//WaitingOrder
+                waitingOrder();
+            } else if (menu == (menus.size()+4)) {//RecentOrder
+                recentOrder();
             }
-            else if(menu == (menus.size()+3)){//나가기, while문 break;
+            else if(menu == (menus.size()+5)){//나가기, while문 break;
                 return;
             }else if(menu==0) {//총 판매 상품목록 출력
                 printAllProduct();
@@ -56,20 +62,41 @@ public class KioskApp {
         }
     }
 
-    public static void printAllProduct(){
+    public static void waitingOrder(){
+        for (Product p : cart) {
+            p.printDescTotal();
+        }
+    }
 
+    public static void recentOrder(){
+        if(orders.size()>3) {
+            for (int i=orders.size()-1; i> orders.size()-4; i--) {
+                Order o = orders.get(i);
+                    for (Product p : o.instanceMenus) {
+                        p.printDescTotal();
+                    }
+                }
+            }
+        else{
+            for (Order o : orders) {
+                for (Product p : o.instanceMenus) {
+                    p.printDescTotal();
+                }
+            }
+        }
+    }
+
+    public static void printAllProduct(){
         double total = 0;
         System.out.println(
                 "[ 총 판매 목록 ]");
         for (Order o : orders) {
             for (Product p : o.instanceMenus) {
                 p.printDescTotal();
-                //System.out.println(p.getName() + "     | W " + p.getPrice() +" | "+p.getCount()+ " | " + p.getDesc());
                 total = total + p.getPrice()*p.getCount();
             }
         }
         System.out.println("[ Total ]\nW " + total);
-
     }
 
     public static void selectProduct(int menu) {
@@ -150,21 +177,18 @@ public class KioskApp {
                 sc.nextLine();      //nextInt()에 먹힌 Enter키 처리
                 String request = sc.nextLine();
 
-                LocalDateTime now = LocalDateTime.now();
-                String dateTimeNow = now.format(DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss"));
                 /*주문 객체 만드는 중*/
-                Order o = new Order();
                 ArrayList<Product> orderMenus = new ArrayList<Product>();
+
                 for (Product p : cart) {
                     Product product = new Product(p.getName(), p.getDesc(), p.getPrice(), p.getCount());
-                    orderMenus.add(product);
+                    Order order = new Order();
+                    order.instanceMenus = new ArrayList<Product>();
+                    order.instanceMenus.add(product);
+                    order.setTotal(total);
+                    order.setOffer(request);//주문에 요청사항 추가
+                    orders.add(order);
                 }
-                o.setInstanceMenus(orderMenus);
-                o.setTotal(total);
-                o.setOffer(request);//주문에 요청사항 추가
-                o.setDateTime(dateTimeNow); // 현재시각 추가
-                o.setWaitingNum(waiting); //대기번호 추가
-                orders.add(o);
 
                 cart.clear();//static 메뉴선택 끝나서 장바구니 비워줌
                 /*개수 카운트 비워줌*/
