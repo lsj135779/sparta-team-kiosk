@@ -24,7 +24,7 @@ public class ManagerApp {
                 createProduct();
 
             }else if(select ==4){//상품 삭제 함수 호출
-
+                deleteProduct();
             }else if(select ==5){//나가기,while문 break함
                 break;
             }
@@ -44,4 +44,18 @@ public class ManagerApp {
         double price = sc.nextDouble();
         Product.createProduct(menuName, productName, productDesc,price);
     }
+
+    private static void deleteProduct() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("[ 상품 삭제 ]\n" +
+                "삭제할 상품의 ID를 입력해 주세요"
+        );
+        String productId = sc.nextLine();
+        Boolean removeCheck = Product.deleteProduct(productId);
+        if (removeCheck) {
+            System.out.println("해당상품이 삭제되었습니다");
+        } else {
+            System.out.println("해당상품은 상품목록에 없습니다");
+        }
+}
 }
