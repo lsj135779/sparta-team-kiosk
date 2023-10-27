@@ -17,7 +17,7 @@ public class ManagerApp {
             select = sc.nextInt();
 
             if(select == 1){//대기주문 목록 함수 호출
-
+                kioskApp.printWaitingProduct();
             }else if(select ==2){//완료주문 목록 함수 호출
                 kioskApp.printAllProduct(); // 민선님이 추가기능으로 총 판매목록 만든거 있어서 여기서 시간만 추가해서 쓰시면 될거같아요
             }else if(select ==3){//상품 생성 함수 호출

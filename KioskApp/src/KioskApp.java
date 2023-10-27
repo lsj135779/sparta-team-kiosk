@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class KioskApp {
     public static List<Order> orders = new ArrayList<Order>();//현재 주문 저장
+    public static List<Order> waitingOrders = new ArrayList<Order>();//대기 주문 저장
     public static ArrayList<Order> completedOrders = new ArrayList<Order>();//완료된 주문 저장
     public static ArrayList<Product> cart = new ArrayList<Product>();//장바구니
     public static ArrayList<Menu> menus = new ArrayList<Menu>();//메뉴들 저장
@@ -98,6 +99,26 @@ public class KioskApp {
         }
         System.out.println("[ Total ]\nW " + total);
     }
+    public static void printWaitingProduct(){
+        double total = 0;
+        System.out.println(
+                "[ 대기 주문 목록 ]");
+        for (Order o : waitingOrders){
+            System.out.println("------------------------------");
+            System.out.println("대기 번호 : " + o.getWaitingNum());
+            System.out.print("주문 상품 목록 : |");
+            for(Product p : o.instanceMenus){
+                System.out.print(p.getName() + "|");
+                total = total + p.getPrice() * p.getCount();
+            }
+            System.out.println("\n[ Total ] W " + total);
+            total = 0;
+            System.out.println("요청 사항 : " + o.getOffer());
+            System.out.println("주문 일시 : " + o.getTime());
+            System.out.println("------------------------------");
+        }
+    }
+
 
     public static void selectProduct(int menu) {
         while (true) {
@@ -156,6 +177,7 @@ public class KioskApp {
     }
 
     public static void order() {
+
         while (true) {
             Scanner sc = new Scanner(System.in);
 
@@ -177,6 +199,8 @@ public class KioskApp {
                 sc.nextLine();      //nextInt()에 먹힌 Enter키 처리
                 String request = sc.nextLine();
 
+                LocalDateTime now = LocalDateTime.now();
+                String dateTimeNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 /*주문 객체 만드는 중*/
                 ArrayList<Product> orderMenus = new ArrayList<Product>();
 
@@ -189,6 +213,18 @@ public class KioskApp {
                     order.setOffer(request);//주문에 요청사항 추가
                     orders.add(order);
                 }
+                /*주문대기 객체 생성*/
+                Order waitingOrder = new Order();
+                waitingOrder.instanceMenus = new ArrayList<Product>();
+                for (Product p : cart) {
+                    Product waitingProduct = new Product(p.getName(), p.getDesc(), p.getPrice(), p.getCount());
+                    waitingOrder.instanceMenus.add(waitingProduct);
+                }
+                waitingOrder.setTotal(total);
+                waitingOrder.setOffer(request);
+                waitingOrder.setTime(dateTimeNow);
+                waitingOrder.setWaitingNum(waiting);
+                waitingOrders.add(waitingOrder);
 
                 cart.clear();//static 메뉴선택 끝나서 장바구니 비워줌
                 /*개수 카운트 비워줌*/
