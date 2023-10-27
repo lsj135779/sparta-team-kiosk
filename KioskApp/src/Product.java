@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Product{
@@ -34,7 +35,7 @@ public class Product{
         boolean newMenus = true;
         for (int i=0;i<menus.size();i++){
             if(menus.get(i).getName().equals(menuName)){
-                tempP.setId(menuName+(menus.get(i).products.size()+1));
+                tempP.setId(menuName + "#" +productName);
                 menus.get(i).products.add(tempP);
                 newMenus = false;//새 메뉴가 아님
                 break;
@@ -47,10 +48,36 @@ public class Product{
             Scanner sc = new Scanner(System.in);
             String menuDesc = sc.nextLine();
             Menu tempM = new Menu(menuName,menuDesc);
-            tempP.setId(menuName+"1");
+            tempP.setId(menuName + "#" + productName);
             tempM.products.add(tempP);
             menus.add(tempM);
         }
+    }
+
+    public static Boolean deleteProduct(String productId) {
+        ArrayList<Menu> menus = KioskApp.menus;
+        String menuName = productId.split("#")[0];
+        String productName = productId.split("#")[1];
+        Boolean removeCheck = false;
+        for (int i = 0; i < menus.size(); i++) {
+            if (Objects.equals(menus.get(i).getName(), menuName)) { // 같은 메뉴
+                for (int j = 0; j < menus.get(i).products.size(); j++) {
+                    int productIdx;
+                    if (Objects.equals(menus.get(i).products.get(j).getName(), productName)) { // 같은 상품
+                        productIdx = j;
+                        menus.get(i).products.remove(j);
+                        removeCheck = true;
+                        break;
+                    }
+                }
+                // 메뉴안에 모든 상품이 삭제된 경우 해당 메뉴도 삭제
+                if (menus.get(i).products.isEmpty()) {
+                    menus.remove(i);
+                }
+            }
+            if (removeCheck) break; // 불필요한 반복문 중지
+        }
+        return removeCheck;
     }
 
     public static void printIndex(ArrayList<Product> p) {
