@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManagerApp {
@@ -19,7 +20,7 @@ public class ManagerApp {
             if(select == 1){//대기주문 목록 함수 호출
                 kioskApp.printWaitingProduct();
             }else if(select ==2){//완료주문 목록 함수 호출
-                kioskApp.printAllProduct(); // 민선님이 추가기능으로 총 판매목록 만든거 있어서 여기서 시간만 추가해서 쓰시면 될거같아요
+                completeOrderList();
             }else if(select ==3){//상품 생성 함수 호출
                 createProduct();
 
@@ -47,15 +48,36 @@ public class ManagerApp {
 
     private static void deleteProduct() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("[ 상품 삭제 ]\n" +
-                "삭제할 상품의 ID를 입력해 주세요"
+        System.out.println("\u001B[32m[ 상품 삭제 ]\n" +
+                "삭제할 상품의 ID를 입력해 주세요\u001B[0m"
         );
         String productId = sc.nextLine();
         Boolean removeCheck = Product.deleteProduct(productId);
         if (removeCheck) {
-            System.out.println("해당상품이 삭제되었습니다");
+            System.out.println("\u001B[34m해당상품이 삭제되었습니다\u001B[0m");
         } else {
-            System.out.println("해당상품은 상품목록에 없습니다");
+            System.out.println("\u001B[31m해당상품은 상품목록에 없습니다\u001B[0m");
         }
-}
+    }
+
+    private static void completeOrderList() {
+        ArrayList<Order> completedOrders = KioskApp.completedOrders;
+        double total = 0;
+        System.out.println("\u001B[32m[ 완료 주문목록 ]\u001B[0m");
+        for (Order order : completedOrders) {
+            System.out.println("------------------------------");
+            System.out.println("\u001B[36m대기 번호 : \u001B[0m" + order.getWaitingNum());
+            System.out.print("\u001B[36m주문 상품 목록 : \u001B[0m| ");
+            for(Product product : order.instanceMenus){
+                System.out.print(product.getName() + " |");
+                total = total + product.getPrice() * product.getCount();
+            }
+            System.out.println("\n\u001B[36m주문 총 가격 : W \u001B[0m" + total);
+            total = 0;
+            System.out.println("\u001B[36m주문 일시 : \u001B[0m" + order.getTime());
+            System.out.println("\u001B[36m요청 사항 : \u001B[0m" + order.getOffer());
+            System.out.println("\u001B[36m완료주문 일시 : \u001B[0m" + order.getCompleteTime());
+            System.out.println("------------------------------");
+        }
+    }
 }

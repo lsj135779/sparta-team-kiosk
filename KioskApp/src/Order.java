@@ -7,6 +7,7 @@ public class Order {
     private double total = 0;
     private String time;
     private int waitingNum;
+    private String completeTime;
     public Order() {
     }
 
@@ -24,6 +25,13 @@ public class Order {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getCompleteTime() {
+        return completeTime;
+    }
+    public void setCompleteTime(String completeTime) {
+        this.completeTime = completeTime;
     }
 
     public String getOffer(){
