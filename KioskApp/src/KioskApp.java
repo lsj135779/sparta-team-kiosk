@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class KioskApp {
@@ -117,8 +118,31 @@ public class KioskApp {
             System.out.println("주문 일시 : " + o.getTime());
             System.out.println("------------------------------");
         }
+        // 대기주문 목록에서 완료처리하는 과정
+        Boolean completeOrderCheck = completeOrder();
+        if (completeOrderCheck) System.out.println("\u001B[34m주문을 완료처리했습니다\u001B[0m");
+        else System.out.println("\u001B[31m존재하지 않는 주문번호입니다\u001B[0m");
     }
 
+    private static Boolean completeOrder () {
+        Scanner sc = new Scanner(System.in);
+        int waitingNum;
+        System.out.println("\u001B[32m완료할 주문의 대기 번호를 입력해주세요\u001B[0m");
+        waitingNum = sc.nextInt();
+        Boolean check = false;
+        for (int i = 0; i < waitingOrders.size(); i++) {
+            if (Objects.equals(waitingNum, waitingOrders.get(i).getWaitingNum())) {
+                LocalDateTime now = LocalDateTime.now();
+                String dateTimeNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                waitingOrders.get(i).setCompleteTime(dateTimeNow); // 완료처리한 시간 추가
+                completedOrders.add(waitingOrders.get(i)); // 완료처리할 대기주문을 완료 주문목록에 추가
+                waitingOrders.remove(i); // 대기주문 목록에서는 삭제
+                check = true;
+                break;
+            }
+        }
+        return check;
+    }
 
     public static void selectProduct(int menu) {
         while (true) {
