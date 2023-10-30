@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.security.SecureRandom;
 
 public class KioskApp {
     public static List<Order> waitingOrders = new ArrayList<Order>();//대기 주문 저장
     public static ArrayList<Order> completedOrders = new ArrayList<Order>();//완료된 주문 저장
     public static ArrayList<Product> cart = new ArrayList<Product>();//장바구니
     public static ArrayList<Menu> menus = new ArrayList<Menu>();//메뉴들 저장
+
+    public static SecureRandom random = new SecureRandom();
 
     public static void selectMenu() {
         int menu;

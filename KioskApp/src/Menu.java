@@ -1,3 +1,4 @@
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,29 +7,29 @@ public class Menu {
     public ArrayList<Product> products;
     private String name;
     private String desc;
-
     private String id;
 
     public static void createMenu(String name, String desc){
-        ArrayList<Menu> menus =KioskApp.menus;
+        ArrayList<Menu> menus = KioskApp.menus;
+        SecureRandom random = KioskApp.random;
         boolean newMenus = true;
-        for (int i=0;i<menus.size();i++){
-            if(menus.get(i).getName().equals(name)){
+        for (Menu m : menus){
+            if(m.getName().equals(name)){
                 newMenus = false;//새 메뉴가 아님
                 System.out.println("이미 존재하는 메뉴입니다.");
             }
         }
         //for문을 도는 동안 같은 메뉴이름인게 안 나왔으면 새 메뉴임
         if(newMenus){
-            menus.add(new Menu(name,desc));
+            menus.add(new Menu(name,desc,""+random.nextLong()));
         }
     }
 
-    public Menu(String name, String desc) {
+    public Menu(String name, String desc, String id) {
         this.name = name;
         this.desc = desc;
         this.products = new ArrayList<Product>();
-        this.id = "Menu"+products.size();
+        this.id = id;
     }
     public static int printIndex(ArrayList<Menu> m) {
         int i=0;
@@ -41,7 +42,7 @@ public class Menu {
         for(Menu m:menus){
             System.out.println("\n [ "+m.getName()+" ]");
             for(Product p: m.products){
-                System.out.println(p.getName() + "   | id : " + p.getId());
+                System.out.println(p.getName() + "   | id : " +m.getId()+"#"+ p.getId());
             }
         }
     }

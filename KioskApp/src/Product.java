@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.security.SecureRandom;
 
 public class Product{
 
@@ -29,41 +30,40 @@ public class Product{
     //새로 상품 추가할때
     public static void createProduct(String menuName, String productName, String productDesc, double price) {
         ArrayList<Menu> menus =KioskApp.menus;
-
-        Product tempP = new Product(productName,productDesc,price,0);
-
+        SecureRandom random = KioskApp.random;
+        Product product = new Product(productName,productDesc,price,0);
         boolean newMenus = true;
+
         for (int i=0;i<menus.size();i++){
             if(menus.get(i).getName().equals(menuName)){
-                tempP.setId(menuName + "#" +productName);
-                menus.get(i).products.add(tempP);
+                product.setId("" +random.nextLong());
+                menus.get(i).products.add(product);
                 newMenus = false;//새 메뉴가 아님
                 break;
             }
         }
-
         //for문을 도는 동안 같은 메뉴이름인게 안 나왔으면 새 메뉴임
         if(newMenus){
             System.out.println("메뉴 설명을 입력해 주세요");
             Scanner sc = new Scanner(System.in);
             String menuDesc = sc.nextLine();
-            Menu tempM = new Menu(menuName,menuDesc);
-            tempP.setId(menuName + "#" + productName);
-            tempM.products.add(tempP);
-            menus.add(tempM);
+            Menu menu = new Menu(menuName,menuDesc,""+random.nextLong());
+            product.setId("" + random.nextLong());
+            menu.products.add(product);
+            menus.add(menu);
         }
     }
 
-    public static Boolean deleteProduct(String productId) {
+    public static Boolean deleteProduct(String target) {
         ArrayList<Menu> menus = KioskApp.menus;
-        String menuName = productId.split("#")[0];
-        String productName = productId.split("#")[1];
+        String menuId = target.split("#")[0];
+        String productId = target.split("#")[1];
         Boolean removeCheck = false;
         for (int i = 0; i < menus.size(); i++) {
-            if (Objects.equals(menus.get(i).getName(), menuName)) { // 같은 메뉴
+            if (Objects.equals(menus.get(i).getId(), menuId)) { // 같은 메뉴
                 for (int j = 0; j < menus.get(i).products.size(); j++) {
                     int productIdx;
-                    if (Objects.equals(menus.get(i).products.get(j).getName(), productName)) { // 같은 상품
+                    if (Objects.equals(menus.get(i).products.get(j).getId(), productId)) { // 같은 상품
                         productIdx = j;
                         menus.get(i).products.remove(j);
                         removeCheck = true;
