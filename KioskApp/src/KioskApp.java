@@ -73,7 +73,7 @@ public class KioskApp {
 
     public static void printWatingList(ArrayList<Order> orders){
         for (Order o : orders) {
-            System.out.println("  [ 대기번호 ] "+o.getWaitingNum());
+            System.out.println("   대기번호 : "+o.getWaitingNum());
             for(Product p : o.instanceMenus) {
                 p.printDescTotal();
             }
@@ -87,10 +87,12 @@ public class KioskApp {
         if(completedOrders.size()>3) {
             for (int i=completedOrders.size()-1; i> completedOrders.size()-4; i--) {
                 Order o = completedOrders.get(i);
+                System.out.println("   대기번호 : "+o.getWaitingNum());
                     for (Product p : o.instanceMenus) {
                         p.printDescTotal();
                     }
                 }
+            System.out.println("------------------------------");
             }
         else if(completedOrders.size()==0){
             System.out.println(
@@ -98,9 +100,11 @@ public class KioskApp {
         }
         else{
             for (Order o : completedOrders) {
+                System.out.println("   대기번호 : "+o.getWaitingNum());
                 for (Product p : o.instanceMenus) {
                     p.printDescTotal();
                 }
+                System.out.println("------------------------------");
             }
         }
     }
