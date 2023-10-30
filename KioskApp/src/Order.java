@@ -11,6 +11,20 @@ public class Order {
     public Order() {
     }
 
+    public static double printTotal(ArrayList<Order> orders){
+        double total = 0;
+        for (Order o : orders) {
+            double totalPerOrder = 0;
+            for (Product p : o.instanceMenus) {
+                p.printDescTotal();
+                totalPerOrder = totalPerOrder + p.getPrice()*p.getCount();
+            }
+            total = total + totalPerOrder;
+            System.out.println("W "+totalPerOrder+"\n------------------------------");
+        }
+        return total;
+    }
+
     public int getWaitingNum() {
         return waitingNum;
     }

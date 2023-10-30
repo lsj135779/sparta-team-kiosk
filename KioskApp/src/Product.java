@@ -88,7 +88,7 @@ public class Product{
 
     //이걸로 숫자 나오는 프린트 함수 다 대체함
     public void printDescTotal() {
-        System.out.println(getName() + "     | W " + this.getPrice() + " | " +(this.getCount()+1)+ "개 | " + getDesc());
+        System.out.println(getName() + "     | W " + this.getPrice() + " | " +this.getCount()+ "개 | " + getDesc());
     }
 
     public void printDesc() {
@@ -111,7 +111,7 @@ public class Product{
 
 
     public int getCount(){
-        return this.count;
+        return this.count+1;
     }
 
     public void setCount(int count ){

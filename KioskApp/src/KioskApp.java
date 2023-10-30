@@ -87,7 +87,7 @@ public class KioskApp {
         if(completedOrders.size()>3) {
             for (int i=completedOrders.size()-1; i> completedOrders.size()-4; i--) {
                 Order o = completedOrders.get(i);
-                System.out.println("   대기번호 : "+o.getWaitingNum());
+                System.out.println(" 대기 번호 : "+o.getWaitingNum());
                     for (Product p : o.instanceMenus) {
                         p.printDescTotal();
                     }
@@ -100,7 +100,7 @@ public class KioskApp {
         }
         else{
             for (Order o : completedOrders) {
-                System.out.println("   대기번호 : "+o.getWaitingNum());
+                System.out.println(" 대기 번호 : "+o.getWaitingNum());
                 for (Product p : o.instanceMenus) {
                     p.printDescTotal();
                 }
@@ -113,31 +113,20 @@ public class KioskApp {
         double total = 0;
         System.out.println(
                 "[ 총 판매 목록 ]");
-        for (Order o : waitingOrders) {
-            for (Product p : o.instanceMenus) {
-                p.printDescTotal();
-                total = total + p.getPrice()*p.getCount();
-            }
-        }
-        for (Order o : completedOrders) {
-            for (Product p : o.instanceMenus) {
-                p.printDescTotal();
-                total = total + p.getPrice()*p.getCount();
-            }
-        }
-        System.out.println("[ Total ]\nW " + total);
+        System.out.println("[ Total ]\nW " + (Order.printTotal(waitingOrders)+Order.printTotal(completedOrders)));
     }
+
     public static void printWaitingProduct(){
         double total = 0;
         System.out.println(
                 "[ 대기 주문 목록 ]");
         for (Order o : waitingOrders){
             System.out.println("------------------------------");
-            System.out.println("대기 번호 : " + o.getWaitingNum());
+            System.out.println(" 대기 번호 : " + o.getWaitingNum());
             System.out.print("주문 상품 목록 : |");
             for(Product p : o.instanceMenus){
                 System.out.print(p.getName() + "|");
-                total = total + p.getPrice() * p.getCount();
+                total = total + p.getPrice() * (p.getCount());
             }
             System.out.println("\n[ Total ] W " + total);
             total = 0;
@@ -307,5 +296,4 @@ public class KioskApp {
             }
         }
     }
-
 }
