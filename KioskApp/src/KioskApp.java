@@ -11,8 +11,19 @@ public class KioskApp {
     public static ArrayList<Order> completedOrders = new ArrayList<Order>();//완료된 주문 저장
     public static ArrayList<Product> cart = new ArrayList<Product>();//장바구니
     public static ArrayList<Menu> menus = new ArrayList<Menu>();//메뉴들 저장
-
     public static SecureRandom random = new SecureRandom();
+    private static int waiting = 0;//대기인원 -> orders.size()로 하면 될듯함
+
+
+    public static int getWaiting() {
+        return waiting;
+    }
+    public static void decreaseWaiting() {
+        waiting = waiting - 1;
+    }
+    public static void increaseWaiting() {
+        waiting = waiting + 1;
+    }
 
     public static void selectMenu() {
         int menu;
@@ -240,6 +251,7 @@ public class KioskApp {
                     order.setTotal(total);
                     order.setOffer(request);//주문에 요청사항 추가
                     order.setTime(dateTimeNow);
+                    order.setWaitingNum(getWaiting());
                     waitingOrders.add(order);//대기주문에 추가
                 }
 
@@ -250,9 +262,9 @@ public class KioskApp {
                         p.setCount(0);
                     }
                 }
-
+                increaseWaiting();
                 System.out.println("주문이 완료되었습니다!\n\n" +
-                        "대기번호는 [ " + waitingOrders.size() + " ] 번 입니다.\n" +
+                        "대기번호는 [ " + getWaiting() + " ] 번 입니다.\n" +
                         "(3초후 메뉴판으로 돌아갑니다.)");
                 //3초 기다려야됨
 
