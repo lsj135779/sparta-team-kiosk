@@ -6,25 +6,10 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class KioskApp {
-    public static List<Order> orders = new ArrayList<Order>();//현재 주문 저장
     public static List<Order> waitingOrders = new ArrayList<Order>();//대기 주문 저장
     public static ArrayList<Order> completedOrders = new ArrayList<Order>();//완료된 주문 저장
     public static ArrayList<Product> cart = new ArrayList<Product>();//장바구니
     public static ArrayList<Menu> menus = new ArrayList<Menu>();//메뉴들 저장
-    private static int waiting = 0;//대기인원 -> orders.size()로 하면 될듯함
-
-
-    public static int getWaiting() {
-        return waiting;
-    }
-
-    public static void decreaseWaiting() {
-        waiting = waiting - 1;
-    }
-
-    public static void increaseWaiting() {
-        waiting = waiting + 1;
-    }
 
     public static void selectMenu() {
         int menu;
@@ -37,26 +22,23 @@ public class KioskApp {
             int i = Menu.printIndex(menus);
 
             System.out.println("[ ORDER MENU ]\n" +
-                    i+". Order       | 장바구니를 확인 후 주문합니다.\n" +
-                    (i+1)+". Cancel      | 진행중인 주문을 취소합니다.\n" +
-                    (i+2)+". WaitingOrder       | 대기중인 주문목록을 확인합니다.\n" +
-                    (i+3)+". RecentOrder      | 최근 3가지 주문목록을 확인합니다.\n" +
-                    (i+4)+". Exit      | 주문 앱에서 나갑니다."
+                    i + ". Order       | 장바구니를 확인 후 주문합니다.\n" +
+                    (i + 1) + ". Cancel      | 진행중인 주문을 취소합니다.\n" +
+                    (i + 2) + ". Recent Orders       | 주문 현황을 확인합니다.\n" +
+                    (i + 3) + ". Exit      | 주문 앱에서 나갑니다."
             );
             menu = sc.nextInt();
 
             if ((0 < menu) && (menu <= menus.size())) {//메뉴 안에 있으면
                 selectProduct(menu);
-            } else if (menu == menus.size()+1) {//Order
+            } else if (menu == menus.size() + 1) {//Order
                 order();
-            } else if (menu == (menus.size()+2)) {//Cancel
+            } else if (menu == (menus.size() + 2)) {//Cancel
                 cancel();
-            } else if (menu == (menus.size()+3)) {//WaitingOrder
-                waitingOrder();
-            } else if (menu == (menus.size()+4)) {//RecentOrder
+            } else if (menu == (menus.size() + 3)) {//주문 현황
                 recentOrder();
-            }
-            else if(menu == (menus.size()+5)){//나가기, while문 break;
+                waitingOrder();
+            } else if (menu == (menus.size() + 4)){//나가기, while문 break;
                 return;
             }else if(menu==0) {//총 판매 상품목록 출력
                 printAllProduct();
@@ -65,22 +47,38 @@ public class KioskApp {
     }
 
     public static void waitingOrder(){
-        for (Product p : cart) {
-            p.printDescTotal();
+        System.out.println(
+                "[ 현재 대기중인 주문 ]");
+        if(waitingOrders.size()==0){
+            System.out.println(
+                    "  현재 대기중인 주문이 없습니다.  ");
+        }
+        else{
+            for (Order o : waitingOrders) {
+                for(Product p : o.instanceMenus) {
+                    p.printDescTotal();
+                }
+            }
         }
     }
 
-    public static void recentOrder(){
-        if(orders.size()>3) {
-            for (int i=orders.size()-1; i> orders.size()-4; i--) {
-                Order o = orders.get(i);
+    public static void recentOrder(){//완료된 최근주문 3개 출력
+        System.out.println(
+                "[ 최근 완료 주문 ]");
+        if(completedOrders.size()>3) {
+            for (int i=completedOrders.size()-1; i> completedOrders.size()-4; i--) {
+                Order o = completedOrders.get(i);
                     for (Product p : o.instanceMenus) {
                         p.printDescTotal();
                     }
                 }
             }
+        else if(completedOrders.size()==0){
+            System.out.println(
+                    "  최근 완료 주문이 없습니다.  ");
+        }
         else{
-            for (Order o : orders) {
+            for (Order o : completedOrders) {
                 for (Product p : o.instanceMenus) {
                     p.printDescTotal();
                 }
@@ -92,7 +90,13 @@ public class KioskApp {
         double total = 0;
         System.out.println(
                 "[ 총 판매 목록 ]");
-        for (Order o : orders) {
+        for (Order o : waitingOrders) {
+            for (Product p : o.instanceMenus) {
+                p.printDescTotal();
+                total = total + p.getPrice()*p.getCount();
+            }
+        }
+        for (Order o : completedOrders) {
             for (Product p : o.instanceMenus) {
                 p.printDescTotal();
                 total = total + p.getPrice()*p.getCount();
@@ -217,7 +221,6 @@ public class KioskApp {
                     "1. 주문      2. 메뉴판");
             int x = sc.nextInt();
             if (x == 1) {//주문
-                increaseWaiting();//대기 인원 증가
 
                 System.out.print("요청 사항이 있다면 입력해주세요 : ");
                 sc.nextLine();      //nextInt()에 먹힌 Enter키 처리
@@ -225,8 +228,6 @@ public class KioskApp {
 
                 LocalDateTime now = LocalDateTime.now();
                 String dateTimeNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                /*주문 객체 만드는 중*/
-                ArrayList<Product> orderMenus = new ArrayList<Product>();
 
                 for (Product p : cart) {
                     Product product = new Product(p.getName(), p.getDesc(), p.getPrice(), p.getCount());
@@ -235,20 +236,9 @@ public class KioskApp {
                     order.instanceMenus.add(product);
                     order.setTotal(total);
                     order.setOffer(request);//주문에 요청사항 추가
-                    orders.add(order);
+                    order.setTime(dateTimeNow);
+                    waitingOrders.add(order);//대기주문에 추가
                 }
-                /*주문대기 객체 생성*/
-                Order waitingOrder = new Order();
-                waitingOrder.instanceMenus = new ArrayList<Product>();
-                for (Product p : cart) {
-                    Product waitingProduct = new Product(p.getName(), p.getDesc(), p.getPrice(), p.getCount());
-                    waitingOrder.instanceMenus.add(waitingProduct);
-                }
-                waitingOrder.setTotal(total);
-                waitingOrder.setOffer(request);
-                waitingOrder.setTime(dateTimeNow);
-                waitingOrder.setWaitingNum(waiting);
-                waitingOrders.add(waitingOrder);
 
                 cart.clear();//static 메뉴선택 끝나서 장바구니 비워줌
                 /*개수 카운트 비워줌*/
@@ -259,7 +249,7 @@ public class KioskApp {
                 }
 
                 System.out.println("주문이 완료되었습니다!\n\n" +
-                        "대기번호는 [ " + getWaiting() + " ] 번 입니다.\n" +
+                        "대기번호는 [ " + waitingOrders.size() + " ] 번 입니다.\n" +
                         "(3초후 메뉴판으로 돌아갑니다.)");
                 //3초 기다려야됨
 
