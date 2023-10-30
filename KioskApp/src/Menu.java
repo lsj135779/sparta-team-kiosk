@@ -37,6 +37,14 @@ public class Menu {
         }
         return i+1;
     }
+    public static void printId(ArrayList<Menu> menus) {
+        for(Menu m:menus){
+            System.out.println("\n [ "+m.getName()+" ]");
+            for(Product p: m.products){
+                System.out.println(p.getName() + "   | id : " + p.getId());
+            }
+        }
+    }
 
     /*getter, setter*/
     public String getName() {

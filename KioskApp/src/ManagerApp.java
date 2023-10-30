@@ -48,6 +48,7 @@ public class ManagerApp {
 
     private static void deleteProduct() {
         Scanner sc = new Scanner(System.in);
+        Menu.printId(KioskApp.menus);
         System.out.println("\u001B[32m[ 상품 삭제 ]\n" +
                 "삭제할 상품의 ID를 입력해 주세요\u001B[0m"
         );
